@@ -1,0 +1,11 @@
+{
+  "author": [
+    "Dav"
+  ],
+  "description": "Stellt automatisch einen Status beim Start/Neustart des Bots ein.",
+  "hidden": false,
+  "install_msg": "Vielen Dank für die Installation von botstatus. Um einen Status zu setzen, der vom Cog gespeichert wird, verwenden Sie ``[p]botstatus``.",
+  "short": "Benutzerdefinierter Startstatus",
+  "end_user_data_statement": "Dieser Cog speichert keine Endbenutzerdaten.",
+  "min_bot_version": "3.5.0"
+}

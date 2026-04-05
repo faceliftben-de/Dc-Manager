@@ -1,0 +1,16 @@
+{
+    "author": [
+        "Dav"
+    ],
+    "description": "Füge eine Sicherheitsbarriere zu deinem Discord-Server hinzu und verlange, dass Benutzer einen Befehl ausführen, bevor sie auf den Server zugreifen.",
+    "hidden": false,
+    "install_msg": "Vielen Dank für die Installation von verifyer. Bitte schließe die Einrichtung ab, inde du  ``[p]verifyerset`` benutzt",
+    "short": "Zwinge Benutzer, sich zu verifizieren.",
+    "tags": [
+        "Sicherheit",
+        "Sicherheit",
+        "Verifikation"
+    ],
+    "end_user_data_statement": "Dieses Cog speichert keine Endbenutzerdaten.",
+    "min_bot_version": "3.5.0"
+}
