@@ -1,0 +1,653 @@
+MODELS = {
+    "gpt-3.5-turbo": 4096,
+    "gpt-3.5-turbo-1106": 16385,
+    "gpt-3.5-turbo-0125": 16385,
+    # "gpt-3.5-turbo-16k": 16384, - Depricated
+    # "gpt-3.5-turbo-16k-0301": 16384, - Depricated
+    # "gpt-3.5-turbo-16k-0613": 16384 - Depricated
+    # "gpt-3.5-turbo-instruct": 8192, - Depricated
+    "gpt-4": 8192,
+    # "gpt-4-32k": 32768, - Depricated
+    "gpt-4-turbo": 128000,
+    "gpt-4-turbo-preview": 128000,
+    "gpt-4-1106-preview": 128000,
+    "gpt-4-0125-preview": 128000,
+    # "gpt-4-vision-preview": 128000, - Depricated
+    "gpt-4-turbo-2024-04-09": 128000,
+    "gpt-4o": 128000,
+    "gpt-4o-2024-05-13": 128000,
+    "gpt-4o-mini": 128000,
+    "gpt-4o-mini-2024-07-18": 128000,
+    "gpt-4o-2024-08-06": 128000,
+    "gpt-4o-2024-11-20": 128000,
+    "chatgpt-4o-latest": 128000,
+    "gpt-4.1": 1047576,
+    "gpt-4.1-2025-04-14": 1047576,
+    "gpt-4.1-mini": 1047576,
+    "gpt-4.1-mini-2025-04-14": 1047576,
+    "gpt-4.1-nano": 1047576,
+    "gpt-4.1-nano-2025-04-14": 1047576,
+    "o1": 128000,
+    "o1-2024-12-17": 200000,
+    "o1-preview": 128000,
+    "o1-preview-2024-09-12": 128000,
+    "o1-mini": 128000,
+    "o1-mini-2024-09-12": 128000,
+    "o3": 200000,
+    "o3-2025-04-16": 200000,
+    "o3-mini": 200000,
+    "o3-mini-2025-01-31": 200000,
+    "gpt-5": 400000,
+    "gpt-5-2025-08-07": 400000,
+    "gpt-5-mini": 400000,
+    "gpt-5-mini-2025-08-07": 400000,
+    "gpt-5-nano": 400000,
+    "gpt-5-nano-2025-08-07": 400000,
+    "gpt-5.1": 400000,
+    "gpt-5.1-2025-11-13": 400000,
+    "gpt-5.2": 400000,
+    "gpt-5.2-2025-12-11": 400000,
+    "gpt-5.4": 1050000,
+    "gpt-5.4-2026-03-05": 1050000,
+    "gpt-5.4-mini": 400000,
+    "gpt-5.4-mini-2026-03-17": 400000,
+    "gpt-5.4-nano": 400000,
+    "gpt-5.4-nano-2026-03-17": 400000,
+}
+PRICES = {  # Price per 1k tokens
+    "gpt-3.5-turbo": [0.001, 0.0015],
+    "gpt-3.5-turbo-0301": [0.0015, 0.002],
+    "gpt-3.5-turbo-0613": [0.0015, 0.002],
+    "gpt-3.5-turbo-1106": [0.001, 0.002],
+    "gpt-3.5-turbo-0125": [0.0005, 0.0015],
+    "gpt-3.5-turbo-16k": [0.003, 0.004],
+    "gpt-3.5-turbo-16k-0301": [0.003, 0.004],
+    "gpt-3.5-turbo-16k-0613": [0.003, 0.004],
+    "gpt-3.5-turbo-instruct": [0.0015, 0.002],
+    "gpt-3.5-turbo-instruct-0914": [0.0015, 0.002],
+    "gpt-4": [0.03, 0.06],
+    "gpt-4-0301": [0.03, 0.06],
+    "gpt-4-0613": [0.03, 0.06],
+    "gpt-4-turbo": [0.01, 0.03],
+    "gpt-4-turbo-preview": [0.01, 0.03],
+    "gpt-4-1106-preview": [0.01, 0.03],
+    "gpt-4-0125-preview": [0.01, 0.03],
+    "gpt-4-vision-preview": [0.01, 0.03],
+    "gpt-4-1106-vision-preview": [0.01, 0.03],
+    "gpt-4-turbo-2024-04-09": [0.01, 0.03],
+    "gpt-4-32k": [0.06, 0.12],
+    "gpt-4-32k-0301": [0.06, 0.12],
+    "gpt-4o": [0.005, 0.015],
+    "gpt-4o-2024-05-13": [0.005, 0.015],
+    "gpt-4o-2024-08-06": [0.0025, 0.01],
+    "gpt-4o-2024-11-20": [0.0025, 0.01],
+    "chatgpt-4o-latest": [0.0025, 0.01],
+    "gpt-4o-mini": [0.00015, 0.0006],
+    "gpt-4o-mini-2024-07-18": [0.00015, 0.0006],
+    "gpt-4.1": [0.002, 0.008],
+    "gpt-4.1-2025-04-14": [0.002, 0.008],
+    "gpt-4.1-mini": [0.0004, 0.0016],
+    "gpt-4.1-mini-2025-04-14": [0.0004, 0.0016],
+    "gpt-4.1-nano": [0.0001, 0.0004],
+    "gpt-4.1-nano-2025-04-14": [0.0001, 0.0004],
+    "gpt-5": [0.00125, 0.010],
+    "gpt-5-2025-08-07": [0.00125, 0.010],
+    "gpt-5-mini": [0.00025, 0.002],
+    "gpt-5-mini-2025-08-07": [0.00025, 0.002],
+    "gpt-5-nano": [0.00005, 0.0004],
+    "gpt-5-nano-2025-08-07": [0.00005, 0.0004],
+    "gpt-5.1": [0.00125, 0.010],
+    "gpt-5.1-2025-11-13": [0.00125, 0.010],
+    "gpt-5.2": [0.00175, 0.014],
+    "gpt-5.2-2025-12-11": [0.00175, 0.014],
+    "gpt-5.4": [0.0025, 0.015],
+    "gpt-5.4-2026-03-05": [0.0025, 0.015],
+    "gpt-5.4-mini": [0.00075, 0.0045],
+    "gpt-5.4-mini-2026-03-17": [0.00075, 0.0045],
+    "gpt-5.4-nano": [0.0002, 0.00125],
+    "gpt-5.4-nano-2026-03-17": [0.0002, 0.00125],
+    "o1": [0.015, 0.06],
+    "o1-2024-12-17": [0.015, 0.06],
+    "o1-preview": [0.015, 0.06],
+    "o1-preview-2024-09-12": [0.015, 0.06],
+    "o1-mini": [0.003, 0.012],
+    "o1-mini-2024-09-12": [0.003, 0.012],
+    "o3": [0.002, 0.008],
+    "o3-mini": [0.0011, 0.0044],
+    "o3-mini-2025-01-31": [0.0011, 0.0044],
+    "text-ada-001": [0.0004, 0.0016],
+    "text-babbage-001": [0.0006, 0.0024],
+    "text-curie-001": [0.003, 0.012],
+    "text-davinci-002": [0.03, 0.12],
+    "text-davinci-003": [0.03, 0.12],
+    "code-davinci-002": [0.03, 0.12],
+    "text-embedding-ada-002": [0.0001, 0.0001],
+    "text-embedding-ada-002-v2": [0.0001, 0.0001],
+    "text-embedding-3-small": [0.00002, 0.00002],
+    "text-embedding-3-large": [0.00013, 0.00013],
+}
+VISION_COSTS = {
+    "gpt-4o": [85, 170],  # 85 base tokens, 170 per (32x32) pixel tile in the image
+    "gpt-4o-2024-05-13": [85, 170],
+    "gpt-4o-2024-08-06": [85, 170],
+    "gpt-4o-2024-11-20": [85, 170],
+    "gpt-4o-mini": [2833, 5667],  # 2833 base tokens, 5667 per (32x32) pixel tile in the image
+    "gpt-4o-mini-2024-07-18": [2833, 5667],
+    "gpt-4.1": [85, 170],  # 85 base tokens, 170 per (32x32) pixel tile in the image
+    "gpt-4.1-2025-04-14": [85, 170],
+    "o1": [75, 150],  # 75 base tokens, 150 per (32x32) pixel tile in the image
+    "o1-2024-12-17": [75, 150],
+    # 75 base tokens, 150 per (32x32) pixel tile in the image
+}
+IMAGE_COSTS = {
+    "standard1024x1024": 0.04,
+    "standard1792x1024": 0.08,
+    "standard1024x1792": 0.08,
+    "hd1024x1024": 0.08,
+    "hd1792x1024": 0.12,
+    "hd1024x1792": 0.12,
+    "low1024x1024": 0.011,
+    "low1024x1536": 0.016,
+    "low1536x1024": 0.016,
+    "medium1024x1024": 0.042,
+    "medium1024x1536": 0.063,
+    "medium1536x1024": 0.063,
+    "high1024x1024": 0.167,
+    "high1024x1536": 0.25,
+    "high1536x1024": 0.25,
+}
+SUPPORTS_SEED = [
+    "gpt-3.5-turbo",
+    "gpt-3.5-turbo-1106",
+    "gpt-3.5-turbo-0125",
+    "gpt-4-1106-preview",
+    "gpt-4-vision-preview",
+    "gpt-4-1106-vision-preview",
+    "gpt-4-turbo-preview",
+    "gpt-4-0125-preview",
+    "gpt-4-turbo-2024-04-09",
+    "gpt-4o",
+    "gpt-4o-2024-05-13",
+    "gpt-4o-2024-08-06",
+    "gpt-4o-2024-11-20",
+    "gpt-4o-mini",
+    "gpt-4o-mini-2024-07-18",
+    "gpt-4o-2024-08-06",
+    "chatgpt-4o-latest",
+    "gpt-4.1",
+    "gpt-4.1-2025-04-14",
+    "gpt-4.1-mini",
+    "gpt-4.1-mini-2025-04-14",
+    "gpt-4.1-nano",
+    "gpt-4.1-nano-2025-04-14",
+    "gpt-5",
+    "gpt-5-2025-08-07",
+    "gpt-5-mini",
+    "gpt-5-mini-2025-08-07",
+    "gpt-5-nano",
+    "gpt-5-nano-2025-08-07",
+    "gpt-5.1",
+    "gpt-5.1-2025-11-13",
+    "gpt-5.2",
+    "gpt-5.2-2025-12-11",
+    "gpt-5.4",
+    "gpt-5.4-2026-03-05",
+    "gpt-5.4-mini",
+    "gpt-5.4-mini-2026-03-17",
+    "gpt-5.4-nano",
+    "gpt-5.4-nano-2026-03-17",
+]
+NO_DEVELOPER_ROLE = [  # Also doesnt support system messages
+    "o1-mini",
+    "o1-mini-2024-09-12",
+    "o1-preview",
+    "o1-preview-2024-09-12",
+    "deepseek",
+]
+SUPPORTS_VISION = [
+    "gpt-4-vision-preview",
+    "gpt-4-1106-vision-preview",
+    "gpt-4-turbo-2024-04-09",
+    "gpt-4o",
+    "gpt-4o-2024-05-13",
+    "gpt-4o-2024-08-06",
+    "gpt-4o-2024-11-20",
+    "gpt-4o-mini",
+    "gpt-4o-mini-2024-07-18",
+    "gpt-4o-2024-08-06",
+    "chatgpt-4o-latest",
+    "gpt-4.1",
+    "gpt-4.1-2025-04-14",
+    "gpt-4.1-mini",
+    "gpt-4.1-mini-2025-04-14",
+    "gpt-4.1-nano",
+    "gpt-4.1-nano-2025-04-14",
+    "o1",
+    "o1-2024-12-17",
+    # "o3-mini",
+    # "o3-mini-2025-01-31",
+    "o3",
+    "o3-2025-04-16",
+    "gpt-5",
+    "gpt-5-2025-08-07",
+    "gpt-5-mini",
+    "gpt-5-mini-2025-08-07",
+    "gpt-5-nano",
+    "gpt-5-nano-2025-08-07",
+    "gpt-5.1",
+    "gpt-5.1-2025-11-13",
+    "gpt-5.2",
+    "gpt-5.2-2025-12-11",
+    "gpt-5.4",
+    "gpt-5.4-2026-03-05",
+    "gpt-5.4-mini",
+    "gpt-5.4-mini-2026-03-17",
+    "gpt-5.4-nano",
+    "gpt-5.4-nano-2026-03-17",
+]
+SUPPORTS_TOOLS = [
+    "gpt-3.5-turbo-1106",
+    "gpt-3.5-turbo-0125",
+    "gpt-4",
+    "gpt-4-turbo",
+    "gpt-4-turbo-preview",
+    "gpt-4-0125-preview",
+    "gpt-4-1106-preview",
+    "gpt-4o",
+    "gpt-4o-2024-05-13",
+    "gpt-4o-2024-08-06",
+    "gpt-4o-2024-11-20",
+    "gpt-4o-mini",
+    "gpt-4o-mini-2024-07-18",
+    "gpt-4o-2024-08-06",
+    "chatgpt-4o-latest",
+    "gpt-4.1",
+    "gpt-4.1-2025-04-14",
+    "gpt-4.1-mini",
+    "gpt-4.1-mini-2025-04-14",
+    "gpt-4.1-nano",
+    "gpt-4.1-nano-2025-04-14",
+    "o1",
+    "o1-2024-12-17",
+    "o3-mini",
+    "o3-mini-2025-01-31",
+    "o3",
+    "o3-2025-04-16",
+    "gpt-5",
+    "gpt-5-2025-08-07",
+    "gpt-5-mini",
+    "gpt-5-mini-2025-08-07",
+    "gpt-5-nano",
+    "gpt-5-nano-2025-08-07",
+    "gpt-5.1",
+    "gpt-5.1-2025-11-13",
+    "gpt-5.2",
+    "gpt-5.2-2025-12-11",
+    "gpt-5.4",
+    "gpt-5.4-2026-03-05",
+    "gpt-5.4-mini",
+    "gpt-5.4-mini-2026-03-17",
+    "gpt-5.4-nano",
+    "gpt-5.4-nano-2026-03-17",
+]
+OLD_TOOL_SCHEMA = [i for i in MODELS.keys() if i not in SUPPORTS_TOOLS]
+READ_EXTENSIONS = [
+    ".txt",
+    ".py",
+    ".json",
+    ".yml",
+    ".yaml",
+    ".xml",
+    ".html",
+    ".ini",
+    ".css",
+    ".toml",
+    ".md",
+    ".ini",
+    ".conf",
+    ".config",
+    ".cfg",
+    ".go",
+    ".java",
+    ".c",
+    ".php",
+    ".swift",
+    ".vb",
+    ".xhtml",
+    ".rss",
+    ".css",
+    ".asp",
+    ".js",
+    ".ts",
+    ".cs",
+    ".c++",
+    ".cpp",
+    ".cbp",
+    ".h",
+    ".cc",
+    ".ps1",
+    ".bat",
+    ".batch",
+    ".shell",
+    ".env",
+    ".sh",
+    ".bat",
+    ".pde",
+    ".spec",
+    ".sql",
+    ".log",
+    # Document types
+    ".pdf",
+    ".docx",
+    ".xlsx",
+    ".xls",
+    ".csv",
+]
+LOADING = "https://i.imgur.com/l3p6EMX.gif"
+REACT_SUMMARY_MESSAGE = """
+Ignore previous instructions. You will be given a snippet of text, your job is to create a "memory" for the given text to provide context for future conversations.
+
+# RULES
+- Output a summary of the text in your own words.
+- This is a contextual memory about a topic, do not include irrelevant information like names of who is speaking.
+- Do not include the original text in your response.
+"""
+TLDR_PROMPT = """
+Write a TLDR based on the messages provided.
+
+The messages you are reviewing will be formatted as follows:
+[<t:Discord Timestamp:t>](Message ID) Author Name: Message Content
+
+TLDR tips:
+- Include details like names and info that might be relevant to a Discord moderation team
+- To create a jump URL for a message, format it as "https://discord.com/channels/<guild_id>/<channel_id/<message_id>"
+- When you reference a message directly, make sure to include [<t:Discord Timestamp:t>](jump url)
+- Separate topics with bullet points
+"""
+
+GENERATE_IMAGE = {
+    "name": "generate_image",
+    "description": "Use this to generate an image from a text prompt.",
+    "parameters": {
+        "type": "object",
+        "properties": {
+            "prompt": {
+                "type": "string",
+                "description": "A sentence or phrase that describes what you want to visualize, must be less than 1000 characters",
+            },
+            "quality": {
+                "type": "string",
+                "enum": ["standard", "hd", "low", "medium", "high"],
+                "description": "The quality of the image. For dall-e-3, use 'standard' or 'hd'. For gpt-image-1.5, use 'low', 'medium', or 'high'. Defaults to 'medium'.",
+            },
+            "style": {
+                "type": "string",
+                "enum": ["natural", "vivid"],
+                "description": "Vivid leans toward more hyper-real and dramatic images. Natural creates more natural, less hyper-real looking images. Only applies to dall-e-3. Defaults to 'vivid'",
+            },
+            "size": {
+                "type": "string",
+                "enum": ["1024x1024", "1792x1024", "1024x1792", "1024x1536", "1536x1024"],
+                "description": "The size of the image, defaults to 1024x1024",
+            },
+            "model": {
+                "type": "string",
+                "enum": ["dall-e-3", "gpt-image-1.5"],
+                "description": "The model to use for image generation. dall-e-3 is the standard model, gpt-image-1.5 is a newer model with different pricing. Defaults to 'dall-e-3'",
+            },
+        },
+        "required": ["prompt"],
+    },
+}
+EDIT_IMAGE = {
+    "name": "edit_image",
+    "description": "Use this to edit an existing image for a user. (Use this is the user tells you to do something to an image!)",
+    "parameters": {
+        "type": "object",
+        "properties": {
+            "prompt": {
+                "type": "string",
+                "description": "Pass the user's prompt directly as this argument and make sure it includes to keep the image exactly the same except for the changes they want to make.",
+            },
+        },
+        "required": ["prompt"],
+    },
+}
+
+
+SEARCH_INTERNET = {
+    "name": "search_web_brave",
+    "description": "Search the web for current information on a topic. Uses Brave Search API if configured, otherwise falls back to DuckDuckGo.",
+    "parameters": {
+        "type": "object",
+        "properties": {
+            "query": {
+                "type": "string",
+                "description": "The search query, can be a question or topic",
+            },
+            "num_results": {
+                "type": "integer",
+                "description": "Number of results to return (default: 5)",
+                "default": 5,
+            },
+        },
+        "required": ["query"],
+    },
+}
+
+THINK_AND_PLAN = {
+    "name": "think_and_plan",
+    "description": "Use this to break down complex tasks into smaller steps before executing them. This helps you organize your approach and ensure you don't miss important details. Call this BEFORE starting work on complex multi-step tasks.",
+    "parameters": {
+        "type": "object",
+        "properties": {
+            "task_summary": {
+                "type": "string",
+                "description": "A brief summary of the overall task or goal (1-2 sentences)",
+            },
+            "steps": {
+                "type": "array",
+                "items": {"type": "string"},
+                "description": "An ordered list of specific steps to complete the task. Each step should be actionable and clear.",
+            },
+            "considerations": {
+                "type": "string",
+                "description": "Any important considerations, edge cases, or potential issues to watch out for",
+            },
+        },
+        "required": ["task_summary", "steps"],
+    },
+}
+DO_NOT_RESPOND_SCHEMA = {
+    "name": "do_not_respond",
+    "description": "Call this function if you do not want to or do not need to respond to the user.",
+    "parameters": {
+        "type": "object",
+        "properties": {},
+    },
+}
+RESPOND_AND_CONTINUE = {
+    "name": "respond_and_continue",
+    "description": "Call this function if you want to respond to the user but also continue working on the task at hand.",
+    "parameters": {
+        "type": "object",
+        "properties": {
+            "content": {
+                "type": "string",
+                "description": "The message to send to the user, this can be something like 'I will continue working on this task, please wait.' or 'I will get back to you shortly.'",
+            },
+        },
+        "required": ["content"],
+    },
+}
+
+CREATE_REMINDER = {
+    "name": "create_reminder",
+    "description": "Create a reminder for the user. The reminder will ping the user (or DM them) at the specified time.",
+    "parameters": {
+        "type": "object",
+        "properties": {
+            "message": {
+                "type": "string",
+                "description": "The reminder message to send to the user",
+            },
+            "remind_in": {
+                "type": "string",
+                "description": "When the reminder should fire. Can be a relative duration (e.g. '5 minutes', '2 hours', '1 day', '1d3h') or an absolute datetime (e.g. '6pm', 'august 4th 3:00pm', '2025-08-04T15:00:00').",
+            },
+            "dm": {
+                "type": "boolean",
+                "description": "Whether to send the reminder as a DM instead of pinging in the channel. Defaults to False.",
+                "default": False,
+            },
+        },
+        "required": ["message", "remind_in"],
+    },
+}
+
+CANCEL_REMINDER = {
+    "name": "cancel_reminder",
+    "description": "Cancel an existing reminder by its ID.",
+    "parameters": {
+        "type": "object",
+        "properties": {
+            "reminder_id": {
+                "type": "string",
+                "description": "The unique ID of the reminder to cancel",
+            },
+        },
+        "required": ["reminder_id"],
+    },
+}
+
+LIST_REMINDERS = {
+    "name": "list_reminders",
+    "description": "List all pending reminders for the user.",
+    "parameters": {
+        "type": "object",
+        "properties": {},
+    },
+}
+
+REMEMBER_USER = {
+    "name": "remember_user",
+    "description": (
+        "Store a fact or preference about the user you are talking to so you can recall it in future conversations. "
+        "You SHOULD proactively use this whenever the user shares personal details, preferences, their setup/configuration, "
+        "issues they are experiencing, or anything that would be useful to know next time they ask for help. "
+        "Examples: user's timezone, platform they play on, recurring issues, preferred language, etc."
+    ),
+    "parameters": {
+        "type": "object",
+        "properties": {
+            "fact": {
+                "type": "string",
+                "description": "A concise, self-contained fact about the user. Write it so it makes sense without additional context, e.g. 'Plays on Xbox Series X' or 'Has recurring connection timeouts when joining ARK servers'",
+            },
+        },
+        "required": ["fact"],
+    },
+}
+
+RECALL_USER = {
+    "name": "recall_user",
+    "description": "Retrieve all stored facts about the user you are talking to. Call this at the start of a support interaction to check if you already know relevant details about them.",
+    "parameters": {
+        "type": "object",
+        "properties": {},
+    },
+}
+
+FORGET_USER = {
+    "name": "forget_user",
+    "description": "Remove a specific fact from the user's memory. Use the fact index (starting from 1) or the exact text of the fact to remove.",
+    "parameters": {
+        "type": "object",
+        "properties": {
+            "fact_index_or_text": {
+                "type": "string",
+                "description": "Either the index number of the fact to remove (e.g. '1', '2') or the exact text of the fact to remove",
+            },
+        },
+        "required": ["fact_index_or_text"],
+    },
+}
+
+SCHEDULE_TASK = {
+    "name": "schedule_task",
+    "description": (
+        "Schedule an autonomous task to be executed at a future time. "
+        "When this task fires, you will be prompted with the instruction in this channel and can take any actions "
+        "available to you (search, fetch, send messages, etc.). "
+        "Use this when a user asks you to do something later, check on something periodically, or follow up on a task. "
+        "Examples: 'check the status channel in 1 hour', 'summarize today's messages at 5pm', 'follow up with the user tomorrow'."
+    ),
+    "parameters": {
+        "type": "object",
+        "properties": {
+            "instruction": {
+                "type": "string",
+                "description": (
+                    "The detailed instruction for what to do when the task fires. "
+                    "Be specific — include what to check, what to report, and any context needed. "
+                    "This will be your prompt when the task executes."
+                ),
+            },
+            "execute_in": {
+                "type": "string",
+                "description": "When the task should execute. Can be a relative duration (e.g. '30 minutes', '1 hour', '2 days', '1w2d3h') or an absolute datetime (e.g. '6pm', 'august 4th 3:00pm', '2025-08-04T15:00:00').",
+            },
+            "context": {
+                "type": "string",
+                "description": "Optional context about why this task was scheduled, for your own reference when it fires.",
+            },
+        },
+        "required": ["instruction", "execute_in"],
+    },
+}
+
+CANCEL_SCHEDULED_TASK = {
+    "name": "cancel_scheduled_task",
+    "description": "Cancel a scheduled autonomous task by its ID.",
+    "parameters": {
+        "type": "object",
+        "properties": {
+            "task_id": {
+                "type": "string",
+                "description": "The unique ID of the scheduled task to cancel",
+            },
+        },
+        "required": ["task_id"],
+    },
+}
+
+LIST_SCHEDULED_TASKS = {
+    "name": "list_scheduled_tasks",
+    "description": "List all pending scheduled tasks for the user in this server.",
+    "parameters": {
+        "type": "object",
+        "properties": {},
+    },
+}
+
+# ---- Tool result pruning constants (two-tier: soft-trim → hard-clear) ----
+# Number of recent messages whose tool results are never pruned
+TOOL_RESULT_PROTECT_RECENT = 6
+# Soft-trim: keep head + tail of oversized tool results
+TOOL_RESULT_SOFT_TRIM_HEAD = 1500  # chars to keep from the start
+TOOL_RESULT_SOFT_TRIM_TAIL = 1500  # chars to keep from the end
+TOOL_RESULT_SOFT_TRIM_MAX = 4000  # total chars after soft-trim
+TOOL_RESULT_SOFT_MIN_CHARS = 500  # results smaller than this are never soft-trimmed
+# Hard-clear: replace entire old tool result with a placeholder
+TOOL_RESULT_HARD_CLEAR_PLACEHOLDER = "[Old tool result cleared to save context space]"
+# Context fill ratios that trigger each tier (fraction of max_tokens)
+TOOL_RESULT_SOFT_RATIO = 0.3  # soft-trim when context > 30% full
+TOOL_RESULT_HARD_RATIO = 0.5  # hard-clear when context > 50% full
+# Max fraction of context window a single tool result may consume
+TOOL_RESULT_MAX_CONTEXT_SHARE = 0.15
+
+# ---- Image retention ----
+# Number of assistant response turns after which old images are evicted from history.
+# Images are enormously expensive (thousands of tokens each); once the model has
+# responded to them a few times they add very little value.
+IMAGE_RETAIN_TURNS = 3
