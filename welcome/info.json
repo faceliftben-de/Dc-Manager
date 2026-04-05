@@ -1,0 +1,20 @@
+{
+    "author": [
+        "tmerc"
+    ],
+    "install_msg": "Danke für die Installation!",
+    "name": "Welcome",
+    "short": "Kündige Mitgliedschaftsereignisse an.",
+    "description": "Kündigt Mitgliedschaftsereignisse an, wie das Beitreten, Verlassen, Sperren und Aufheben von Sperren in einem anpassbaren Textkanal mit anpassbaren Nachrichten.",
+    "requirements": [],
+    "tags": [
+        "welcome",
+        "greetings",
+        "leave",
+        "ban",
+        "utility"
+    ],
+    "hidden": false,
+    "disabled": false,
+    "min_bot_version": "3.5.0"
+}
